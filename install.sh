@@ -103,6 +103,7 @@ node -v
         	echo "安装node环境..."
        		yum install -y epel-release
           yum install -y nodejs
+	  yum install -y npm
 		  npm -v
 			if [ $? -eq  0 ]; then
 			  	echo "node...安装完成!"
@@ -190,7 +191,7 @@ fi
 read -p "是否使用已经存在的redis[y/n]:" USE_OTHER_REDIS
 if  test y = $USE_OTHER_REDIS
 then
-    read -p "REDIS IP:" REDIS_IP
+    read -p "REDIS IP:" REDIS_HOST
     read -p "REDIS PORT:" REDIS_PORT
     read -p "REDIS PASSWORD:" REDIS_PASSWORD
 else
