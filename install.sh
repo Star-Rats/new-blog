@@ -316,7 +316,7 @@ docker run --name blog-nginx --restart=always --network=host -d -v /blog/dev/ngi
 
 read -p "请输入邮箱的host:" MAIL_HOST
 read -p "请输入邮箱的用户名:" MAIL_USER_NAME
-read -p "请输入邮箱的授权码或密码:" MAIL_USER_NAME
+read -p "请输入邮箱的授权码或密码:" MAIL_PASSWORD
 read -p "请输入邮箱服务器的端口:" MAIL_PORT
 
 echo "上传模式为OSS,如果你需要其他的上传模式可以联系我或者自己修改该脚本~"
