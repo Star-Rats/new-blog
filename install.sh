@@ -176,6 +176,7 @@ else
     read -p "请输入MySQL root帐号的默认密码:" MYSQL_PASSWORD
     MYSQL_IP='127.0.0.1'
     MYSQL_PORT=3306
+    MYSQL_USER_NAME=root
 mkdir -p /blog/dev/data/mysql/conf/
 rm -rf /blog/dev/data/mysql/conf/my.cnf
 touch /blog/dev/data/mysql/conf/my.cnf
