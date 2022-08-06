@@ -58,6 +58,7 @@ java -version
           tar -zxvf /opt/jdk/jdk-8u202-linux-x64.tar.gz -C /opt/jdk/
           sed -i '$aexport JAVA_HOME=/opt/jdk/jdk1.8.0_202' /etc/profile
           sed -i '$aexport PATH=$PATH:$JAVA_HOME/bin' /etc/profile
+
           source /etc/profile
           
 		  java -version
@@ -83,6 +84,32 @@ mvn -v
           sed -i '$aexport MAVEN_HOME=/opt/maven/apache-maven-3.6.3' /etc/profile
           sed -i '$aexport PATH=$PATH:$MAVEN_HOME/bin' /etc/profile
           source /etc/profile
+
+           rm -rf /opt/maven/apache-maven-3.6.3/conf/settings.xml
+           touch /opt/maven/apache-maven-3.6.3/conf/settings.xml
+           sudo cat >> /opt/maven/apache-maven-3.6.3/conf/settings.xml << EOF 
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<pluginGroups>
+</pluginGroups>
+<proxies>
+</proxies>
+<servers>
+</servers>
+<mirrors>
+    <mirror>
+        <id>nexus-aliyun</id>
+        <mirrorOf>central</mirrorOf>
+        <name>Nexus aliyun</name>
+        <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+    </mirror>
+</mirrors>
+<profiles>
+</profiles>
+</settings>    
+EOF
          
 		  /opt/maven/apache-maven-3.6.3/bin/mvn -v
 			if [ $? -eq  0 ]; then
@@ -150,6 +177,7 @@ else
     MYSQL_IP='127.0.0.1'
     MYSQL_PORT=3306
 mkdir -p /blog/dev/data/mysql/conf/
+rm -rf /blog/dev/data/mysql/conf/my.cnf
 touch /blog/dev/data/mysql/conf/my.cnf
 cat >> /blog/dev/data/mysql/conf/my.cnf << EOF
 [mysqld]
@@ -170,6 +198,7 @@ EOF
     docker run -p $MYSQL_PORT:$MYSQL_PORT --name blog-mysql -v /blog/dev/data/mysql/conf:/etc/mysql -v /blog/dev/data/mysql/log:/var/log/mysql -v /blog/dev/data/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=$MYSQL_PASSWORD  -e TZ="Asia/Shanghai" -d --restart=always mysql:8.0
     # 将数据库的SQL文件初始化到MySQL中去
     docker cp blog-mysql8.sql blog-mysql:/
+    rm -rf init_database.sql
     touch init_database.sql
 
 cat >> init_database.sql << EOF
@@ -196,7 +225,7 @@ then
     read -p "REDIS PASSWORD:" REDIS_PASSWORD
 else
     read -p "请输入redis的默认密码:" REDIS_PASSWORD
-    REDIS_IP='127.0.0.1'
+    REDIS_HOST='127.0.0.1'
     REDIS_PORT=6379
     docker run --name blog-redis  --restart=always -p $REDIS_PORT:$REDIS_PORT -d redis --requirepass "$REDIS_PASSWORD"
 fi
@@ -341,5 +370,4 @@ read -p "请输入微博的user-info-url:" WB_UIU
 # 启动Blog接口容器
 BOOT_PARAM="--server.port=$SERVER_PORT --spring.datasource.url=jdbc:mysql://$MYSQL_IP:$MYSQL_PORT/blog?serverTimezone=Asia/Shanghai&allowMultiQueries=true --spring.datasource.username=$MYSQL_USER_NAME --spring.datasource.password=$MYSQL_PASSWORD --spring.redis.host=$REDIS_HOST  --spring.redis.port=$REDIS_PORT --spring.redis.password=$REDIS_PASSWORD --spring.rabbitmq.host=$MQ_HOST  --spring.rabbitmq.port=$MQ_PORT --spring.rabbitmq.username=$MQ_USER_NAME --spring.rabbitmq.password=$MQ_PASSWORD  --spring.mail.host=$MAIL_HOST --spring.mail.username=$MAIL_USER_NAME --spring.mail.password=$MAIL_PASSWORD --spring.mail.port=$MAIL_PORT --upload.mode=oss --upload.oss.url=$OSS_URL  --upload.oss.endpoint=$OSS_ENDPOINT  --upload.oss.accessKeyId=$OSS_AKID --upload.oss.accessKeySecret=$OSS_AKS --upload.oss.bucketName=$OSS_BUCKET --websit.url=http://$SERVER_IP:80 --qq.app-id=$QQ_APPID --qq.check-token-url=$QQ_CTU --qq.user-info-url=$QQ_UIU --weibo.app-id=$WB_APPID --weibo.app-secret=$WB_AS --weibo.grant-type=$WB_GT --weibo.redirect-url=$WB_RU --weibo.access-token-url=$WB_ATU --weibo.user-info-url=$WB_UIU"
 docker run --name blog --restart=always --network=host blog:v1 $BOOT_PARAM
-
 
