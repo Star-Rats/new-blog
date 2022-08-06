@@ -223,7 +223,7 @@ systemctl stop firewalld
 mkdir -p /blog/dev/nginx/
 touch /blog/dev/nginx/nginx.conf
 # 生成配置文件
-sudo tee /blog/dev/nginx/nginx.conf <<-'EOF'
+sudo tee /blog/dev/nginx/nginx.conf << EOF
 events {
     worker_connections  1024;
 }
@@ -253,14 +253,14 @@ server {
         location / {		
             root   /usr/local/vue/blog;
             index  index.html index.htm; 
-            try_files $uri $uri/ /index.html;	
+            try_files \$uri \$uri/ /index.html;	
         }
         
         location ^~ /api/ {		
-            proxy_pass http://127.0.0.1:8080/;
-            proxy_set_header   Host             $host;
-            proxy_set_header   X-Real-IP        $remote_addr;						
-            proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+            proxy_pass http://127.0.0.1:$SERVER_PORT/;
+            proxy_set_header   Host             \$host;
+            proxy_set_header   X-Real-IP       \$remote_addr;						
+            proxy_set_header   X-Forwarded-For  \$proxy_add_x_forwarded_for;
         }
     }
 	
@@ -271,14 +271,14 @@ server {
         location / {		
             root   /usr/local/vue/admin;
             index  index.html index.htm; 
-            try_files $uri $uri/ /index.html;	
+            try_files \$uri \$uri/ /index.html;	
         }
         
         location ^~ /api/ {		
-            proxy_pass http://127.0.0.1:8080/;
-            proxy_set_header   Host             $host;
-            proxy_set_header   X-Real-IP        $remote_addr;						
-            proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+            proxy_pass http://127.0.0.1:$SERVER_PORT/;
+            proxy_set_header   Host             \$host;
+            proxy_set_header   X-Real-IP        \$remote_addr;						
+            proxy_set_header   X-Forwarded-For  \$proxy_add_x_forwarded_for;
         }
     }
 
@@ -289,12 +289,12 @@ server {
         location / {
           proxy_pass http://127.0.0.1:8080/websocket;
           proxy_http_version 1.1;
-          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Upgrade \$http_upgrade;
           proxy_set_header Connection "Upgrade";
-          proxy_set_header Host $host:$server_port;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header Host \$host:\$server_port;
+          proxy_set_header X-Real-IP \$remote_addr;
+          proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto \$scheme;
        }
 	
     }
