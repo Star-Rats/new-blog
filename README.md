@@ -189,7 +189,7 @@ sh install.sh
 
 ## 交流群
 
-![博客技术交流群聊二维码.png](https://static.talkxj.com/articles/1594437310326.png)
+![博客技术交流群聊二维码.png](https://static.talkxj.com/articles/bb616125f8b775e871e5b3c92e9c863b.png)
 
 
 
