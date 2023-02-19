@@ -24,21 +24,11 @@
    </a>
 </p>
 
-[在线地址](#在线地址) | [目录结构](#目录结构) | [项目特点](#项目特点) | [技术介绍](#技术介绍) | [运行环境](#运行环境) | [开发环境](#开发环境) | [项目截图](#项目截图) | [快速开始](#快速开始) | [注意事项](#注意事项) | [项目总结](#项目总结) | [交流群](#交流群)
+[在线地址](#在线地址) | [目录结构](#目录结构) | [项目特点](#项目特点) | [技术介绍](#技术介绍) | [运行环境](#运行环境) | [开发环境](#开发环境) | [快速开始](#懒人教程) | [注意事项](#注意事项)
 
 ## 在线地址
 
-**项目链接：** [www.talkxj.com](https://www.talkxj.com)
-
-**后台链接：** [admin.talkxj.com](https://admin.talkxj.com)
-
-测试账号：test@qq.com，密码：1234567，可登入后台查看。
-
-**Github地址：** [https://github.com/X1192176811/blog](https://github.com/X1192176811/blog)
-
-**Gitee地址：** [https://gitee.com/feng_meiyu/blog](https://gitee.com/feng_meiyu/blog)
-
-**在线接口文档地址：** [https://www.talkxj.com/api/doc.html](https://www.talkxj.com/api/doc.html)
+**项目链接：** [http://www.jiangmingyang.com/](http://www.jiangmingyang.com/)
 
 您的star是我坚持的动力，感谢大家的支持，欢迎提交pr共同改进项目。
 
@@ -137,30 +127,6 @@ blog-springboot
 |Elasticsearch|7.9.2|
 |RabbitMQ|3.8.5|
 
-## 项目截图
-
-![QQ截图20210320171133.png](https://static.talkxj.com/articles/1616231666692.png)
-
-![QQ截图20210320235519 1.jpg](https://static.talkxj.com/articles/1616255938601.jpg)
-
-![QQ截图20210320171338.png](https://static.talkxj.com/articles/1616231705373.png)
-
-![QQ截图20210320171401.png](https://static.talkxj.com/articles/1616231714148.png)
-
-## 快速开始
-
-### 项目环境安装
-
-详见文章[Docker安装运行环境](https://www.talkxj.com/articles/2)
-
-### 项目配置
-
-详见文章[项目配置教程](https://www.talkxj.com/articles/3)
-
-### Docker部署项目
-
-详见文章[项目部署教程](https://www.talkxj.com/articles/13)
-
 ### 懒人教程
 
 考虑到本人很懒，且学生机到期之后经常会迁移自己的博客到其他云厂商的服务器，所以为centos7操作系统提供了一键部署脚本install.sh
@@ -182,14 +148,6 @@ sh install.sh
 - 项目拉下来运行后，可到后台管理页面网站配置处修改博客相关信息.
 - 邮箱配置，第三方授权配置需要自己申请。
 - ElasticSearch需要自己先创建索引，项目运行环境教程中有介绍。
-
-## 项目总结
-
-博客作为新手入门项目是十分不错的，项目所用的技术栈覆盖的也比较广，适合初学者学习。主要难点在于权限管理、第三方登录、websocket这块。做的不好的地方请大家见谅，有问题的或者有好的建议可以私聊联系我。
-
-## 交流群
-
-![博客技术交流群聊二维码.png](https://static.talkxj.com/articles/bb616125f8b775e871e5b3c92e9c863b.png)
 
 
 
